@@ -20,8 +20,15 @@ String myEnumStatement(MyEnum enumVal) {
 }
 
 String myMultipleReturnEnumStatement(MyEnum enumVal) {
-  return switch (enumVal) {
-    MyEnum.first || MyEnum.second || MyEnum.third => 'first, second, or third',
-    MyEnum.fourth || MyEnum.fifth => 'fourth or fifth',
-  };
+  switch (enumVal) {
+    case MyEnum.first:
+    case MyEnum.second:
+    case MyEnum.third:
+      return 'first, second, or third';
+    case MyEnum.fourth:
+    case MyEnum.fifth:
+      return 'fourth or fifth';
+    default:
+      return 'default';
+  }
 }

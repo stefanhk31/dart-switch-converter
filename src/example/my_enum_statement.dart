@@ -4,6 +4,7 @@ enum MyEnum {
   third,
   fourth,
   fifth,
+  other,
 }
 
 String myEnumStatement(MyEnum enumVal) {

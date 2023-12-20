@@ -1,7 +1,8 @@
 {
   "name": "dart-switch-converter",
   "displayName": "dart-switch-converter",
-  "description": "",
+  "description": "Command to convert Dart switch statements into expressions using pattern matching (requires Dart 3 or above).",
+  "publisher": "shodgeskluck",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.84.0"

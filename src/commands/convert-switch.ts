@@ -1,11 +1,11 @@
 import {window} from 'vscode';
 
 
-export const convertSwitch = () => {
+export const convertSwitch = (): String => {
     const editor = window.activeTextEditor;
 
     if (!editor) {
-        return;
+        return '';
     }
 
     const document = editor.document;
@@ -37,4 +37,6 @@ export const convertSwitch = () => {
     editor.edit((editBuilder) => {
         editBuilder.replace(selection, converted);
     });
+
+    return converted;
 };

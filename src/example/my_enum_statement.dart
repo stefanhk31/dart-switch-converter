@@ -33,3 +33,22 @@ String myMultipleReturnEnumStatement(MyEnum enumVal) {
       return 'default';
   }
 }
+
+String myVariableAssignmentEnumStatement(MyEnum enumVal) {
+  String val;
+  switch (enumVal) {
+    case MyEnum.first:
+    case MyEnum.second:
+    case MyEnum.third:
+      val = 'first, second, or third';
+      break;
+    case MyEnum.fourth:
+    case MyEnum.fifth:
+      val = 'fourth or fifth';
+      break;
+    default:
+      val = 'default';
+  }
+
+  return val;
+}

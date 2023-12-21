@@ -3,31 +3,11 @@
 import * as vscode from 'vscode';
 import { convertSwitch } from './commands/convert-switch';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('dart-switch-converter.convertSwitch', () => {
-		const editor = vscode.window.activeTextEditor;
-
-		if (!editor) {
-			return;
-		}
-
-		const document = editor.document;
-		const selection = editor.selection;
-
-		const selectedText = document.getText(selection);
-
-		const convertedText = convertSwitch(selectedText);
-
-		editor.edit((editBuilder) => {
-			editBuilder.replace(selection, convertedText);
-		});
-
-	});
-
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(
+		vscode.commands.registerCommand(
+			'dart-switch-converter.convertSwitch', 
+			convertSwitch
+			));
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}

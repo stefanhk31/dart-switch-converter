@@ -1,15 +1,25 @@
-export const convertSwitch = (text: string): string => {
+import {window} from 'vscode';
+
+
+export const convertSwitch = () => {
+    const editor = window.activeTextEditor;
+
+    if (!editor) {
+        return;
+    }
+
+    const document = editor.document;
+    const selection = editor.selection;
+
+    const selectedText = document.getText(selection);
+
     const switchRegex = /switch\s*\(([^)]+)\)\s*{([\s\S]*?)}/g;
     const caseRegex = /case\s+([^:\s]+)\s*:\s*([\s\S]*?)(?=\bcase\b|\bdefault\b|$)/g;
     const defaultRegex = /default\s*:\s*([\s\S]*?)(?=\bcase\b|$)/;
 
-    const converted = text.replace(switchRegex, (_: any, switchExpression: any, cases: any) => {
+    const converted = selectedText.replace(switchRegex, (_: any, switchExpression: any, cases: any) => {
         const convertedCases = cases.replace(caseRegex, (_: any, caseValues: any, caseBody: any) => {
             const convertedStatement = caseBody.replace(/^return\s+/, '').trim();
-            
-            const caseValuesArray = caseValues.includes('||')
-                ? `(${caseValues.split(/\s+/).join(' || ')})`
-                : caseValues;
 
             if (caseBody) {
                 return `${caseValues} => ${convertedStatement.endsWith(';') ? convertedStatement.slice(0, -1) + ',' : convertedStatement}`;
@@ -24,5 +34,7 @@ export const convertSwitch = (text: string): string => {
         return `return switch (${switchExpression}) {${convertedCases}\n  };`;
     });
 
-    return converted;
+    editor.edit((editBuilder) => {
+        editBuilder.replace(selection, converted);
+    });
 };
